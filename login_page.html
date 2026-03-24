@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Login | Church Registry System</title>
+    <!-- Bootstrap 5 CSS (complete styling) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-light d-flex align-items-center min-vh-100">
+
+    <div class="container" style="max-width: 480px;">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <!-- Main Card - pure Bootstrap styling -->
+                <div class="card shadow border-0 rounded-4">
+                    <div class="card-body p-4 p-md-5 text-center">
+                        
+                        <!-- Church Icon Header -->
+                        <div class="bg-dark bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                            <i class="fas fa-church fa-2x text-secondary"></i>
+                        </div>
+                        
+                        <!-- Title -->
+                        <h2 class="h3 fw-bold mb-1">Church Registry System</h2>
+                        <p class="text-secondary small mb-4">Parish Digital Recordkeeping</p>
+                        
+                        <!-- Login Form - using Email + Password credentials -->
+                        <form method="POST" action="#" id="loginForm">
+                            <!-- Email Field -->
+                            <div class="mb-3 text-start">
+                                <label for="email" class="form-label fw-semibold small text-secondary">
+                                    <i class="fas fa-envelope me-1"></i> Email Address
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-secondary">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    <input type="email" class="form-control border-start-0 ps-0" id="email" name="email" placeholder="clergy@parish.org" required autocomplete="email">
+                                </div>
+                                <div class="invalid-feedback text-start small" id="emailFeedback">
+                                    Please enter a valid email address.
+                                </div>
+                            </div>
+                            
+                            <!-- Password Field -->
+                            <div class="mb-4 text-start">
+                                <label for="password" class="form-label fw-semibold small text-secondary">
+                                    <i class="fas fa-lock me-1"></i> Password
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-secondary">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                    <input type="password" class="form-control border-start-0 ps-0" id="password" name="password" placeholder="··············" required autocomplete="current-password">
+                                </div>
+                                <div class="invalid-feedback text-start small" id="passwordFeedback">
+                                    Password is required.
+                                </div>
+                            </div>
+                            
+                            <!-- Remember Me & Forgot Password Row -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="rememberCheck">
+                                    <label class="form-check-label small" for="rememberCheck">
+                                        Keep me signed in
+                                    </label>
+                                </div>
+                                <a href="#" class="text-decoration-none small" data-bs-toggle="modal" data-bs-target="#forgotModal">
+                                    <i class="fas fa-question-circle me-1"></i> Forgot password?
+                                </a>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-dark w-100 py-2 mb-3 fw-semibold">
+                                <i class="fas fa-sign-in-alt me-2"></i> Log in to Dashboard
+                            </button>
+                            
+                            <!-- Security Note -->
+                            <div class="small text-secondary border-top pt-3 mt-2">
+                                <i class="fas fa-shield-alt me-1"></i> Secured Access · Authorized Church Staff Only
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Forgot Password Modal (Bootstrap component) -->
+    <div class="modal fade" id="forgotModal" tabindex="-1" aria-labelledby="forgotModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title fw-semibold" id="forgotModalLabel">
+                        <i class="fas fa-question-circle me-2"></i>Password Assistance
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-secondary">For authorized church staff, please contact the parish administrator to reset your credentials.</p>
+                    <hr>
+                    <div class="small">
+                        <i class="fas fa-envelope me-2 text-secondary"></i> <strong>Church Office:</strong> registry@parish.org<br>
+                        <i class="fas fa-phone-alt me-2 text-secondary"></i> (555) 123-4567
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Simple form validation with Bootstrap classes only -->
+    <script>
+        (function() {
+            const form = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const emailFeedback = document.getElementById('emailFeedback');
+            const passwordFeedback = document.getElementById('passwordFeedback');
+            
+            // Helper to remove existing alerts
+            function removeAlert() {
+                const existingAlert = document.querySelector('.login-alert');
+                if (existingAlert) existingAlert.remove();
+            }
+            
+            // Helper to show Bootstrap-styled alert
+            function showAlert(message, type = 'danger') {
+                removeAlert();
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type} alert-dismissible fade show login-alert mt-3`;
+                alertDiv.setAttribute('role', 'alert');
+                alertDiv.innerHTML = `
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                `;
+                const submitBtn = form.querySelector('button[type="submit"]');
+                form.insertBefore(alertDiv, submitBtn);
+                
+                setTimeout(() => {
+                    if (alertDiv) alertDiv.remove();
+                }, 5000);
+            }
+            
+            // Clear validation styling on input
+            function clearInvalidStyle(input, feedback) {
+                input.addEventListener('input', function() {
+                    this.classList.remove('is-invalid');
+                    if (feedback) feedback.style.display = 'none';
+                });
+            }
+            
+            if (emailInput) clearInvalidStyle(emailInput, emailFeedback);
+            if (passwordInput) clearInvalidStyle(passwordInput, passwordFeedback);
+            
+            // Email validation function
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            
+            // Form submission handler
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const email = emailInput ? emailInput.value.trim() : '';
+                const password = passwordInput ? passwordInput.value.trim() : '';
+                
+                let hasError = false;
+                
+                // Reset validation styles
+                if (emailInput) emailInput.classList.remove('is-invalid');
+                if (passwordInput) passwordInput.classList.remove('is-invalid');
+                if (emailFeedback) emailFeedback.style.display = 'none';
+                if (passwordFeedback) passwordFeedback.style.display = 'none';
+                
+                // Validate email
+                if (!email) {
+                    hasError = true;
+                    if (emailInput) {
+                        emailInput.classList.add('is-invalid');
+                        if (emailFeedback) {
+                            emailFeedback.style.display = 'block';
+                            emailFeedback.textContent = 'Email address is required.';
+                        }
+                    }
+                } else if (!isValidEmail(email)) {
+                    hasError = true;
+                    if (emailInput) {
+                        emailInput.classList.add('is-invalid');
+                        if (emailFeedback) {
+                            emailFeedback.style.display = 'block';
+                            emailFeedback.textContent = 'Please enter a valid email address.';
+                        }
+                    }
+                }
+                
+                // Validate password
+                if (!password) {
+                    hasError = true;
+                    if (passwordInput) {
+                        passwordInput.classList.add('is-invalid');
+                        if (passwordFeedback) {
+                            passwordFeedback.style.display = 'block';
+                            passwordFeedback.textContent = 'Password is required.';
+                        }
+                    }
+                }
+                
+                if (hasError) {
+                    showAlert('Please enter both your email address and password to access the church registry.', 'warning');
+                    return;
+                }
+                
+                // Success simulation - in production this would submit to Django backend
+                showAlert('Demo mode: Authentication would connect to Django backend. Dashboard access granted to authorized staff.', 'success');
+            });
+        })();
+    </script>
+</body>
+</html>
