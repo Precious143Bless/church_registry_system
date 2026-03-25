@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Reports | Church Registry System</title>
+    <link href="assets/style/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/style/church-registry.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo"><i class="fas fa-church"></i></div>
+            <div class="sidebar-title">Church Registry</div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+                <span>Dashboard</span>
+            </a>
+            <a href="members.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-users"></i></span>
+                <span>Members</span>
+            </a>
+            <a href="sacraments.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-cross"></i></span>
+                <span>Sacraments</span>
+            </a>
+            <a href="events.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-calendar"></i></span>
+                <span>Events</span>
+            </a>
+            <a href="logbook.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-book"></i></span>
+                <span>Logbook</span>
+            </a>
+            <a href="financial.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-donate"></i></span>
+                <span>Financial</span>
+            </a>
+            <a href="reports.html" class="nav-item active">
+                <span class="nav-icon"><i class="fas fa-file-alt"></i></span>
+                <span>Reports</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-cog"></i></span>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="header-title">Reports</h1>
+            
+            <div class="header-actions">
+                <button class="btn btn-secondary">
+                    <span><i class="fas fa-search"></i></span>
+                    <span>Search</span>
+                </button>
+                
+                <div class="user-menu">
+                    <div class="user-avatar">JD</div>
+                    <span class="user-name">John Doe</span>
+                    <span><i class="fas fa-chevron-down"></i></span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Content -->
+        <div class="content">
+            <!-- Report Categories -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: 600;">Generate Reports</h2>
+                </div>
+            </div>
+            
+            <!-- Report Type Cards -->
+            <div class="row mb-4">
+                <div class="col-4">
+                    <div class="card report-card" onclick="showMemberReportsModal()">
+                        <div class="card-body text-center">
+                            <div style="width: 64px; height: 64px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem;">
+                                <i class="fas fa-users" style="color: var(--primary-color);"></i>
+                            </div>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Member Reports</h3>
+                            <p style="color: var(--gray-600); font-size: 0.875rem;">Membership statistics, demographics, attendance reports</p>
+                            <div style="margin-top: 1rem;">
+                                <span class="badge badge-primary">12 Reports</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-4">
+                    <div class="card report-card" onclick="showSacramentReportsModal()">
+                        <div class="card-body text-center">
+                            <div style="width: 64px; height: 64px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem;">
+                                <i class="fas fa-cross" style="color: var(--primary-color);"></i>
+                            </div>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Sacrament Reports</h3>
+                            <p style="color: var(--gray-600); font-size: 0.875rem;">Baptisms, confirmations, weddings, first communions</p>
+                            <div style="margin-top: 1rem;">
+                                <span class="badge badge-primary">8 Reports</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-4">
+                    <div class="card report-card" onclick="showFinancialReportsModal()">
+                        <div class="card-body text-center">
+                            <div style="width: 64px; height: 64px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem;">
+                                <i class="fas fa-donate" style="color: var(--primary-color);"></i>
+                            </div>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Financial Reports</h3>
+                            <p style="color: var(--gray-600); font-size: 0.875rem;">Donations, tithes, offering summaries, expense reports</p>
+                            <div style="margin-top: 1rem;">
+                                <span class="badge badge-primary">10 Reports</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-4">
+                    <div class="card report-card" onclick="showEventReportsModal()">
+                        <div class="card-body text-center">
+                            <div style="width: 64px; height: 64px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem;">
+                                <i class="fas fa-calendar" style="color: var(--primary-color);"></i>
+                            </div>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Event Reports</h3>
+                            <p style="color: var(--gray-600); font-size: 0.875rem;">Event attendance, calendar summaries, activity reports</p>
+                            <div style="margin-top: 1rem;">
+                                <span class="badge badge-primary">6 Reports</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-4">
+                    <div class="card report-card" onclick="showLogbookReportsModal()">
+                        <div class="card-body text-center">
+                            <div style="width: 64px; height: 64px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem;">
+                                <i class="fas fa-book" style="color: var(--primary-color);"></i>
+                            </div>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Logbook Reports</h3>
+                            <p style="color: var(--gray-600); font-size: 0.875rem;">Daily activities, maintenance logs, visitor records</p>
+                            <div style="margin-top: 1rem;">
+                                <span class="badge badge-primary">5 Reports</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-4">
+                    <div class="card report-card" onclick="showCustomReportsModal()">
+                        <div class="card-body text-center">
+                            <div style="width: 64px; height: 64px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem;">
+                                <i class="fas fa-cog" style="color: var(--primary-color);"></i>
+                            </div>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Custom Reports</h3>
+                            <p style="color: var(--gray-600); font-size: 0.875rem;">Create custom reports with specific criteria</p>
+                            <div style="margin-top: 1rem;">
+                                <span class="badge badge-primary">Unlimited</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Reports -->
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2 style="font-size: 1.25rem; margin: 0; font-weight: 600;">Recent Reports</h2>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-secondary btn-sm">
+                            <span><i class="fas fa-download"></i></span>
+                            <span>Export All</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table reports-table">
+                        <thead>
+                            <tr>
+                                <th>Report Name</th>
+                                <th>Type</th>
+                                <th>Generated</th>
+                                <th>Generated By</th>
+                                <th>Format</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--gray-900);">Monthly Membership Report</div>
+                                        <div style="font-size: 0.75rem; color: var(--gray-500);">March 2023 membership statistics</div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-primary">Member</span></td>
+                                <td style="color: var(--gray-700);">March 26, 2023<br>9:30 AM</td>
+                                <td style="color: var(--gray-700);">John Doe</td>
+                                <td><span class="badge badge-success">PDF</span></td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-download"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-share"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--gray-900);">Sacrament Summary Q1 2023</div>
+                                        <div style="font-size: 0.75rem; color: var(--gray-500);">First quarter sacrament statistics</div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-info">Sacrament</span></td>
+                                <td style="color: var(--gray-700);">March 25, 2023<br>2:15 PM</td>
+                                <td style="color: var(--gray-700);">Maria Santos</td>
+                                <td><span class="badge badge-success">Excel</span></td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-download"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-share"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--gray-900);">Financial Summary March 2023</div>
+                                        <div style="font-size: 0.75rem; color: var(--gray-500);">Monthly donation and expense report</div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-warning">Financial</span></td>
+                                <td style="color: var(--gray-700);">March 24, 2023<br>11:45 AM</td>
+                                <td style="color: var(--gray-700);">Carlos Mendoza</td>
+                                <td><span class="badge badge-success">PDF</span></td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-download"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-share"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--gray-900);">Event Attendance Report</div>
+                                        <div style="font-size: 0.75rem; color: var(--gray-500);">Q1 2023 event participation statistics</div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-info">Event</span></td>
+                                <td style="color: var(--gray-700);">March 23, 2023<br>4:20 PM</td>
+                                <td style="color: var(--gray-700);">Ana Lopez</td>
+                                <td><span class="badge badge-info">CSV</span></td>
+                                <td><span class="badge badge-warning">Processing</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;" disabled><i class="fas fa-download"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;" disabled><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--gray-900);">Annual Church Report 2022</div>
+                                        <div style="font-size: 0.75rem; color: var(--gray-500);">Complete annual statistics and summary</div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-primary">Custom</span></td>
+                                <td style="color: var(--gray-700);">March 22, 2023<br>10:00 AM</td>
+                                <td style="color: var(--gray-700);">John Doe</td>
+                                <td><span class="badge badge-success">PDF</span></td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-download"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-share"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <div style="color: var(--gray-500); font-size: 0.875rem;">
+                        Showing 1-5 of 42 reports
+                    </div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></button>
+                        <button class="btn btn-primary btn-sm">1</button>
+                        <button class="btn btn-secondary btn-sm">2</button>
+                        <button class="btn btn-secondary btn-sm">3</button>
+                        <button class="btn btn-secondary btn-sm">...</button>
+                        <button class="btn btn-secondary btn-sm">9</button>
+                        <button class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Member Reports Modal -->
+    <div id="memberReportsModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: var(--radius-lg); width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 style="font-size: 1.25rem; margin: 0; font-weight: 600;">Member Reports</h2>
+                <button onclick="hideMemberReportsModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-500);"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 style="margin: 0; font-weight: 600;">Membership Directory</h6>
+                                <small style="color: var(--gray-600);">Complete list of all church members</small>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 style="margin: 0; font-weight: 600;">Age Demographics</h6>
+                                <small style="color: var(--gray-600);">Member age distribution statistics</small>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 style="margin: 0; font-weight: 600;">Attendance Report</h6>
+                                <small style="color: var(--gray-600);">Weekly/monthly attendance statistics</small>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 style="margin: 0; font-weight: 600;">New Members Report</h6>
+                                <small style="color: var(--gray-600);">Recently registered members</small>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/script/bootstrap.bundle.js"></script>
+    <script src="assets/script/church-registry.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Sacraments | Church Registry System</title>
+    <title>Financial Management | Church Registry System</title>
     <link href="assets/style/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/style/church-registry.css">
@@ -28,7 +28,7 @@
                 <span class="nav-icon"><i class="fas fa-users"></i></span>
                 <span>Members</span>
             </a>
-            <a href="#" class="nav-item active">
+            <a href="sacraments.html" class="nav-item">
                 <span class="nav-icon"><i class="fas fa-cross"></i></span>
                 <span>Sacraments</span>
             </a>
@@ -40,7 +40,7 @@
                 <span class="nav-icon"><i class="fas fa-book"></i></span>
                 <span>Logbook</span>
             </a>
-            <a href="financial.html" class="nav-item">
+            <a href="financial.html" class="nav-item active">
                 <span class="nav-icon"><i class="fas fa-donate"></i></span>
                 <span>Financial</span>
             </a>
@@ -59,7 +59,7 @@
     <main class="main-content">
         <!-- Header -->
         <header class="header">
-            <h1 class="header-title">Sacraments</h1>
+            <h1 class="header-title">Financial Management</h1>
             
             <div class="header-actions">
                 <button class="btn btn-secondary">
@@ -67,9 +67,9 @@
                     <span>Search</span>
                 </button>
                 
-                <button class="btn btn-primary" onclick="showAddSacramentModal()">
+                <button class="btn btn-primary" onclick="showAddDonationModal()">
                     <span><i class="fas fa-plus"></i></span>
-                    <span>Record Sacrament</span>
+                    <span>Add Donation</span>
                 </button>
                 
                 <div class="user-menu">
@@ -82,74 +82,74 @@
         
         <!-- Content -->
         <div class="content">
-            <!-- Sacraments Stats -->
+            <!-- Financial Overview Cards -->
             <div class="row mb-4">
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <div>
-                                    <h3 style="font-size: 2rem; font-weight: 700; color: var(--gray-900);">156</h3>
-                                    <p style="color: var(--gray-600); font-size: 0.875rem; font-weight: 500;">Baptisms This Year</p>
+                                    <h3 style="font-size: 2rem; font-weight: 700; color: var(--gray-900);">₱125,450</h3>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem; font-weight: 500;">Total Donations</p>
                                 </div>
-                                <div style="width: 48px; height: 48px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"><i class="fas fa-water"></i></div>
-                            </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <span style="color: var(--success-color); font-size: 0.875rem; font-weight: 600;">↑ 12%</span>
-                                <span style="color: var(--gray-500); font-size: 0.875rem;">from last year</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <div>
-                                    <h3 style="font-size: 2rem; font-weight: 700; color: var(--gray-900);">89</h3>
-                                    <p style="color: var(--gray-600); font-size: 0.875rem; font-weight: 500;">First Communions</p>
-                                </div>
-                                <div style="width: 48px; height: 48px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"><i class="fas fa-bread-slice"></i></div>
-                            </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <span style="color: var(--success-color); font-size: 0.875rem; font-weight: 600;">↑ 8%</span>
-                                <span style="color: var(--gray-500); font-size: 0.875rem;">from last year</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <div>
-                                    <h3 style="font-size: 2rem; font-weight: 700; color: var(--gray-900);">67</h3>
-                                    <p style="color: var(--gray-600); font-size: 0.875rem; font-weight: 500;">Confirmations</p>
-                                </div>
-                                <div style="width: 48px; height: 48px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"><i class="fas fa-dove"></i></div>
-                            </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <span style="color: var(--gray-500); font-size: 0.875rem;">Same as last year</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <div>
-                                    <h3 style="font-size: 2rem; font-weight: 700; color: var(--gray-900);">23</h3>
-                                    <p style="color: var(--gray-600); font-size: 0.875rem; font-weight: 500;">Weddings</p>
-                                </div>
-                                <div style="width: 48px; height: 48px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"><i class="fas fa-heart"></i></div>
+                                <div style="width: 48px; height: 48px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"><i class="fas fa-donate"></i></div>
                             </div>
                             <div class="d-flex align-items-center gap-2">
                                 <span style="color: var(--success-color); font-size: 0.875rem; font-weight: 600;">↑ 15%</span>
-                                <span style="color: var(--gray-500); font-size: 0.875rem;">from last year</span>
+                                <span style="color: var(--gray-500); font-size: 0.875rem;">from last month</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h3 style="font-size: 2rem; font-weight: 700; color: var(--gray-900);">₱45,200</h3>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem; font-weight: 500;">This Month</p>
+                                </div>
+                                <div style="width: 48px; height: 48px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="color: var(--success-color); font-size: 0.875rem; font-weight: 600;">↑ 8%</span>
+                                <span style="color: var(--gray-500); font-size: 0.875rem;">from last month</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h3 style="font-size: 2rem; font-weight: 700; color: var(--gray-900);">₱12,800</h3>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem; font-weight: 500;">This Week</p>
+                                </div>
+                                <div style="width: 48px; height: 48px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"><i class="fas fa-calendar-week"></i></div>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="color: var(--gray-500); font-size: 0.875rem;">Same as last week</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h3 style="font-size: 2rem; font-weight: 700; color: var(--gray-900);">234</h3>
+                                    <p style="color: var(--gray-600); font-size: 0.875rem; font-weight: 500;">Total Donors</p>
+                                </div>
+                                <div style="width: 48px; height: 48px; background: var(--gray-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"><i class="fas fa-users"></i></div>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="color: var(--success-color); font-size: 0.875rem; font-weight: 600;">↑ 12%</span>
+                                <span style="color: var(--gray-500); font-size: 0.875rem;">new donors this month</span>
                             </div>
                         </div>
                     </div>
@@ -162,32 +162,38 @@
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group">
-                                <label class="form-label">Search Sacraments</label>
-                                <input type="text" class="form-control" placeholder="Search by name or sacrament ID...">
+                                <label class="form-label">Search Donations</label>
+                                <input type="text" class="form-control" placeholder="Search by donor name or ID...">
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
-                                <label class="form-label">Sacrament Type</label>
+                                <label class="form-label">Donation Type</label>
                                 <select class="form-control">
                                     <option>All Types</option>
-                                    <option>Baptism</option>
-                                    <option>First Communion</option>
-                                    <option>Confirmation</option>
-                                    <option>Wedding</option>
-                                    <option>Ordination</option>
+                                    <option>Tithe</option>
+                                    <option>Offering</option>
+                                    <option>Building Fund</option>
+                                    <option>Mission</option>
+                                    <option>Special</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
-                                <label class="form-label">Date Range</label>
-                                <input type="date" class="form-control">
+                                <label class="form-label">Payment Method</label>
+                                <select class="form-control">
+                                    <option>All Methods</option>
+                                    <option>Cash</option>
+                                    <option>Check</option>
+                                    <option>Bank Transfer</option>
+                                    <option>Online</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
-                                <label class="form-label">To</label>
+                                <label class="form-label">Date From</label>
                                 <input type="date" class="form-control">
                             </div>
                         </div>
@@ -204,10 +210,10 @@
                 </div>
             </div>
             
-            <!-- Sacraments Table -->
+            <!-- Donations Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h2 style="font-size: 1.25rem; margin: 0; font-weight: 600;">Sacrament Records</h2>
+                    <h2 style="font-size: 1.25rem; margin: 0; font-weight: 600;">Donation Records</h2>
                     <div class="d-flex gap-2">
                         <button class="btn btn-secondary btn-sm">
                             <span><i class="fas fa-download"></i></span>
@@ -220,171 +226,121 @@
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table sacraments-table">
+                    <table class="table donations-table">
                         <thead>
                             <tr>
-                                <th>Sacrament ID</th>
+                                <th>Donation ID</th>
+                                <th>Donor Name</th>
                                 <th>Type</th>
-                                <th>Name</th>
+                                <th>Amount</th>
                                 <th>Date</th>
-                                <th>Celebrant</th>
-                                <th>Sponsors</th>
+                                <th>Method</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>SAC-001</strong></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <span style="font-size: 1.125rem;"><i class="fas fa-water"></i></span>
-                                        <span class="badge badge-primary">Baptism</span>
-                                    </div>
-                                </td>
+                                <td><strong>DON-001</strong></td>
                                 <td>
                                     <div>
                                         <div style="font-weight: 600; color: var(--gray-900);">Maria Santos</div>
                                         <div style="font-size: 0.75rem; color: var(--gray-500);">MEM-001</div>
                                     </div>
                                 </td>
-                                <td style="color: var(--gray-700);">March 15, 2023</td>
-                                <td style="color: var(--gray-700);">Fr. John Reyes</td>
-                                <td>
-                                    <div style="font-size: 0.8125rem; color: var(--gray-700);">
-                                        <div>Juan Santos</div>
-                                        <div>Rosa Lopez</div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-success">Completed</span></td>
+                                <td><span class="badge badge-primary">Tithe</span></td>
+                                <td style="color: var(--gray-700); font-weight: 600;">₱1,500</td>
+                                <td style="color: var(--gray-700);">March 26, 2023</td>
+                                <td><span class="badge badge-success">Cash</span></td>
+                                <td><span class="badge badge-success">Received</span></td>
                                 <td>
                                     <div class="d-flex gap-1">
                                         <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-file-alt"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-receipt"></i></button>
                                         <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-edit"></i></button>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>SAC-002</strong></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <span style="font-size: 1.125rem;"><i class="fas fa-bread-slice"></i></span>
-                                        <span class="badge badge-success">First Communion</span>
-                                    </div>
-                                </td>
+                                <td><strong>DON-002</strong></td>
                                 <td>
                                     <div>
                                         <div style="font-weight: 600; color: var(--gray-900);">John Reyes</div>
                                         <div style="font-size: 0.75rem; color: var(--gray-500);">MEM-002</div>
                                     </div>
                                 </td>
-                                <td style="color: var(--gray-700);">April 22, 2023</td>
-                                <td style="color: var(--gray-700);">Fr. Michael Torres</td>
-                                <td>
-                                    <div style="font-size: 0.8125rem; color: var(--gray-700);">
-                                        <div>Jose Reyes</div>
-                                        <div>Maria Cruz</div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-success">Completed</span></td>
+                                <td><span class="badge badge-info">Building Fund</span></td>
+                                <td style="color: var(--gray-700); font-weight: 600;">₱5,000</td>
+                                <td style="color: var(--gray-700);">March 25, 2023</td>
+                                <td><span class="badge badge-warning">Check</span></td>
+                                <td><span class="badge badge-success">Received</span></td>
                                 <td>
                                     <div class="d-flex gap-1">
                                         <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-file-alt"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-receipt"></i></button>
                                         <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-edit"></i></button>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>SAC-003</strong></td>
+                                <td><strong>DON-003</strong></td>
                                 <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <span style="font-size: 1.125rem;"><i class="fas fa-dove"></i></span>
-                                        <span class="badge badge-warning">Confirmation</span>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--gray-900);">Anonymous</div>
+                                        <div style="font-size: 0.75rem; color: var(--gray-500);">Visitor</div>
                                     </div>
                                 </td>
+                                <td><span class="badge badge-success">Offering</span></td>
+                                <td style="color: var(--gray-700); font-weight: 600;">₱500</td>
+                                <td style="color: var(--gray-700);">March 24, 2023</td>
+                                <td><span class="badge badge-success">Cash</span></td>
+                                <td><span class="badge badge-success">Received</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-receipt"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-edit"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>DON-004</strong></td>
                                 <td>
                                     <div>
                                         <div style="font-weight: 600; color: var(--gray-900);">Ana Lopez</div>
                                         <div style="font-size: 0.75rem; color: var(--gray-500);">MEM-003</div>
                                     </div>
                                 </td>
-                                <td style="color: var(--gray-700);">May 10, 2023</td>
-                                <td style="color: var(--gray-700);">Bishop Antonio Santos</td>
-                                <td>
-                                    <div style="font-size: 0.8125rem; color: var(--gray-700);">
-                                        <div>Carlos Mendoza</div>
-                                        <div>Elena Torres</div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-success">Completed</span></td>
+                                <td><span class="badge badge-warning">Mission</span></td>
+                                <td style="color: var(--gray-700); font-weight: 600;">₱2,000</td>
+                                <td style="color: var(--gray-700);">March 23, 2023</td>
+                                <td><span class="badge badge-info">Bank Transfer</span></td>
+                                <td><span class="badge badge-success">Received</span></td>
                                 <td>
                                     <div class="d-flex gap-1">
                                         <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-file-alt"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-receipt"></i></button>
                                         <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-edit"></i></button>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>SAC-004</strong></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <span style="font-size: 1.125rem;"><i class="fas fa-heart"></i></span>
-                                        <span class="badge badge-info">Wedding</span>
-                                    </div>
-                                </td>
+                                <td><strong>DON-005</strong></td>
                                 <td>
                                     <div>
-                                        <div style="font-weight: 600; color: var(--gray-900);">Carlos Mendoza & Elena Torres</div>
-                                        <div style="font-size: 0.75rem; color: var(--gray-500);">MEM-004 & MEM-005</div>
+                                        <div style="font-weight: 600; color: var(--gray-900);">Carlos Mendoza</div>
+                                        <div style="font-size: 0.75rem; color: var(--gray-500);">MEM-004</div>
                                     </div>
                                 </td>
-                                <td style="color: var(--gray-700);">June 15, 2023</td>
-                                <td style="color: var(--gray-700);">Fr. Gabriel Reyes</td>
-                                <td>
-                                    <div style="font-size: 0.8125rem; color: var(--gray-700);">
-                                        <div>Roberto Mendoza</div>
-                                        <div>Isabella Santos</div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-success">Completed</span></td>
+                                <td><span class="badge badge-primary">Tithe</span></td>
+                                <td style="color: var(--gray-700); font-weight: 600;">₱1,200</td>
+                                <td style="color: var(--gray-700);">March 22, 2023</td>
+                                <td><span class="badge badge-info">Online</span></td>
+                                <td><span class="badge badge-success">Received</span></td>
                                 <td>
                                     <div class="d-flex gap-1">
                                         <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-file-alt"></i></button>
-                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-edit"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>SAC-005</strong></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <span style="font-size: 1.125rem;"><i class="fas fa-water"></i></span>
-                                        <span class="badge badge-primary">Baptism</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <div style="font-weight: 600; color: var(--gray-900);">Baby Rodriguez</div>
-                                        <div style="font-size: 0.75rem; color: var(--gray-500);">MEM-006</div>
-                                    </div>
-                                </td>
-                                <td style="color: var(--gray-700);">July 20, 2023</td>
-                                <td style="color: var(--gray-700);">Fr. Carlos Lopez</td>
-                                <td>
-                                    <div style="font-size: 0.8125rem; color: var(--gray-700);">
-                                        <div>Antonio Rodriguez</div>
-                                        <div>Sofia Martinez</div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-warning">Scheduled</span></td>
-                                <td>
-                                    <div class="d-flex gap-1">
-                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-file-alt"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-receipt"></i></button>
                                         <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-edit"></i></button>
                                     </div>
                                 </td>
@@ -394,7 +350,7 @@
                 </div>
                 <div class="card-footer d-flex justify-content-between align-items-center">
                     <div style="color: var(--gray-500); font-size: 0.875rem;">
-                        Showing 1-5 of 456 sacraments
+                        Showing 1-5 of 234 donations
                     </div>
                     <div class="d-flex gap-1">
                         <button class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></button>
@@ -402,7 +358,7 @@
                         <button class="btn btn-secondary btn-sm">2</button>
                         <button class="btn btn-secondary btn-sm">3</button>
                         <button class="btn btn-secondary btn-sm">...</button>
-                        <button class="btn btn-secondary btn-sm">92</button>
+                        <button class="btn btn-secondary btn-sm">47</button>
                         <button class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></button>
                     </div>
                 </div>
@@ -410,71 +366,62 @@
         </div>
     </main>
     
-    <!-- Add Sacrament Modal -->
-    <div id="addSacramentModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+    <!-- Add Donation Modal -->
+    <div id="addDonationModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
         <div style="background: white; border-radius: var(--radius-lg); width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto;">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h2 style="font-size: 1.25rem; margin: 0; font-weight: 600;">Record New Sacrament</h2>
-                <button onclick="hideAddSacramentModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-500);"><i class="fas fa-times"></i></button>
+                <h2 style="font-size: 1.25rem; margin: 0; font-weight: 600;">Add New Donation</h2>
+                <button onclick="hideAddDonationModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-500);"><i class="fas fa-times"></i></button>
             </div>
             <div class="card-body">
                 <form>
                     <div class="form-group">
-                        <label class="form-label">Sacrament Type *</label>
+                        <label class="form-label">Donor Name *</label>
                         <select class="form-control" required>
-                            <option value="">Select Sacrament Type</option>
-                            <option value="baptism">Baptism</option>
-                            <option value="first-communion">First Communion</option>
-                            <option value="confirmation">Confirmation</option>
-                            <option value="wedding">Wedding</option>
-                            <option value="ordination">Ordination</option>
+                            <option value="">Select Donor</option>
+                            <option value="MEM-001">Maria Santos (MEM-001)</option>
+                            <option value="MEM-002">John Reyes (MEM-002)</option>
+                            <option value="MEM-003">Ana Lopez (MEM-003)</option>
+                            <option value="anonymous">Anonymous</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Member *</label>
+                        <label class="form-label">Donation Type *</label>
                         <select class="form-control" required>
-                            <option value="">Select Member</option>
-                            <option value="MEM-001">Maria Santos (MEM-001)</option>
-                            <option value="MEM-002">John Reyes (MEM-002)</option>
-                            <option value="MEM-003">Ana Lopez (MEM-003)</option>
+                            <option value="">Select Type</option>
+                            <option value="tithe">Tithe</option>
+                            <option value="offering">Offering</option>
+                            <option value="building">Building Fund</option>
+                            <option value="mission">Mission</option>
+                            <option value="special">Special</option>
                         </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Amount *</label>
+                        <input type="number" class="form-control" placeholder="Enter amount" min="0" step="0.01" required>
                     </div>
                     
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label class="form-label">Date of Sacrament *</label>
+                                <label class="form-label">Date *</label>
                                 <input type="date" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label class="form-label">Time</label>
-                                <input type="time" class="form-control">
+                                <label class="form-label">Payment Method *</label>
+                                <select class="form-control" required>
+                                    <option value="">Select Method</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="check">Check</option>
+                                    <option value="bank">Bank Transfer</option>
+                                    <option value="online">Online Payment</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Celebrant *</label>
-                        <select class="form-control" required>
-                            <option value="">Select Celebrant</option>
-                            <option value="fr-john">Fr. John Reyes</option>
-                            <option value="fr-michael">Fr. Michael Torres</option>
-                            <option value="fr-carlos">Fr. Carlos Lopez</option>
-                            <option value="bishop-antonio">Bishop Antonio Santos</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Location</label>
-                        <input type="text" class="form-control" placeholder="e.g., Main Church, Parish Hall">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Sponsors</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter sponsor names (one per line)"></textarea>
                     </div>
                     
                     <div class="form-group">
@@ -483,18 +430,19 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Status</label>
-                        <select class="form-control">
-                            <option value="scheduled">Scheduled</option>
-                            <option value="completed">Completed</option>
-                            <option value="cancelled">Cancelled</option>
-                        </select>
+                        <label class="form-label">Generate Receipt</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="generateReceipt" checked>
+                            <label class="form-check-label" for="generateReceipt">
+                                Automatically generate receipt
+                            </label>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="card-footer d-flex justify-content-end gap-2">
-                <button class="btn btn-secondary" onclick="hideAddSacramentModal()">Cancel</button>
-                <button class="btn btn-primary">Record Sacrament</button>
+                <button class="btn btn-secondary" onclick="hideAddDonationModal()">Cancel</button>
+                <button class="btn btn-primary">Add Donation</button>
             </div>
         </div>
     </div>

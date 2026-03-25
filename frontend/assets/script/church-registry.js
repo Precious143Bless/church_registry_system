@@ -17,6 +17,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize tooltips
     initializeTooltips();
+    
+    // Initialize notification system
+    initializeNotifications();
+    
+    // Initialize data tables
+    initializeDataTables();
+    
+    // Initialize calendar functionality
+    initializeCalendar();
 });
 
 // Mobile Menu Toggle
@@ -594,3 +603,236 @@ document.addEventListener('click', function(e) {
         showToast('Filters', 'Filters cleared', 'success');
     }
 });
+
+// Notification System
+function initializeNotifications() {
+    // Create notification container
+    const notificationContainer = document.createElement('div');
+    notificationContainer.id = 'notification-container';
+    notificationContainer.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        max-width: 400px;
+    `;
+    document.body.appendChild(notificationContainer);
+}
+
+function showNotification(title, message, type = 'info', duration = 5000) {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.style.cssText = `
+        background: white;
+        border-left: 4px solid ${type === 'success' ? 'var(--success-color)' : type === 'error' ? 'var(--danger-color)' : type === 'warning' ? 'var(--warning-color)' : 'var(--info-color)'};
+        border-radius: var(--radius-md);
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: var(--shadow-lg);
+        animation: slideInRight 0.3s ease-out;
+    `;
+    
+    notification.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div>
+                <h6 style="margin: 0 0 0.5rem 0; font-weight: 600; color: var(--text-primary);">${title}</h6>
+                <p style="margin: 0; color: var(--text-secondary); font-size: 0.875rem;">${message}</p>
+            </div>
+            <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 0.25rem;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+    
+    const container = document.getElementById('notification-container');
+    container.appendChild(notification);
+    
+    // Auto remove after duration
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+    }, duration);
+}
+
+// Data Tables Enhancement
+function initializeDataTables() {
+    const tables = document.querySelectorAll('.table');
+    tables.forEach(table => {
+        // Add sorting functionality
+        const headers = table.querySelectorAll('th');
+        headers.forEach((header, index) => {
+            if (header.textContent.trim() !== 'Actions') {
+                header.style.cursor = 'pointer';
+                header.addEventListener('click', () => sortTable(table, index));
+                header.innerHTML += ' <i class="fas fa-sort" style="font-size: 0.75rem; color: var(--text-muted);"></i>';
+            }
+        });
+    });
+}
+
+function sortTable(table, columnIndex) {
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const isAscending = table.dataset.sortDirection !== 'asc';
+    
+    rows.sort((a, b) => {
+        const aValue = a.children[columnIndex].textContent.trim();
+        const bValue = b.children[columnIndex].textContent.trim();
+        
+        // Handle numeric values
+        if (!isNaN(aValue) && !isNaN(bValue)) {
+            return isAscending ? aValue - bValue : bValue - aValue;
+        }
+        
+        // Handle text values
+        return isAscending ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+    });
+    
+    rows.forEach(row => tbody.appendChild(row));
+    table.dataset.sortDirection = isAscending ? 'asc' : 'desc';
+}
+
+// Calendar Functionality
+function initializeCalendar() {
+    const calendarToggle = document.querySelectorAll('.btn');
+    calendarToggle.forEach(btn => {
+        if (btn.textContent.includes('Calendar') || btn.textContent.includes('List')) {
+            btn.addEventListener('click', function() {
+                const calendarGrid = document.querySelector('.card');
+                if (calendarGrid) {
+                    if (this.textContent.includes('Calendar')) {
+                        showNotification('Calendar View', 'Switching to calendar view', 'info');
+                    } else {
+                        showNotification('List View', 'Switching to list view', 'info');
+                    }
+                }
+            });
+        }
+    });
+}
+
+// Modal Functions
+function showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function hideModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Report Generation Functions
+function showMemberReportsModal() {
+    showNotification('Reports', 'Opening member reports...', 'info');
+    showModal('memberReportsModal');
+}
+
+function hideMemberReportsModal() {
+    hideModal('memberReportsModal');
+}
+
+// Financial Functions
+function showAddDonationModal() {
+    showModal('addDonationModal');
+}
+
+function hideAddDonationModal() {
+    hideModal('addDonationModal');
+}
+
+// Logbook Functions
+function showAddLogEntryModal() {
+    showModal('addLogEntryModal');
+}
+
+function hideAddLogEntryModal() {
+    hideModal('addLogEntryModal');
+}
+
+// Event Functions
+function showAddEventModal() {
+    showModal('addEventModal');
+}
+
+function hideAddEventModal() {
+    hideModal('addEventModal');
+}
+
+// Sacrament Functions
+function showAddSacramentModal() {
+    showModal('addSacramentModal');
+}
+
+function hideAddSacramentModal() {
+    hideModal('addSacramentModal');
+}
+
+// Member Functions
+function showAddMemberModal() {
+    showModal('addMemberModal');
+}
+
+function hideAddMemberModal() {
+    hideModal('addMemberModal');
+}
+
+// Register Functions
+function showRegisterModal() {
+    showModal('registerModal');
+}
+
+function hideRegisterModal() {
+    hideModal('registerModal');
+}
+
+// Add CSS animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+    
+    .report-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .report-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .is-invalid {
+        border-color: var(--danger-color) !important;
+    }
+    
+    .notification {
+        animation: slideInRight 0.3s ease-out;
+    }
+`;
+document.head.appendChild(style);
