@@ -22,7 +22,7 @@ def login_view(request):
             login(request, user)
             return redirect('dashboard')
         messages.error(request, 'Invalid username or password.')
-    return render(request, 'registry/login.html')
+    return render(request, 'frontend/login.html')
 
 
 def logout_view(request):
@@ -55,7 +55,7 @@ def dashboard(request):
         'outstanding_pledges': outstanding_pledges,
         'recent_members': recent_members,
     }
-    return render(request, 'registry/dashboard.html', context)
+    return render(request, 'frontend/dashboard.html', context)
 
 
 # ─── MEMBERS ─────────────────────────────────────────────────────────────────
@@ -69,7 +69,7 @@ def member_list(request):
             Q(first_name__icontains=q) | Q(last_name__icontains=q) |
             Q(middle_name__icontains=q) | Q(contact_number__icontains=q)
         )
-    return render(request, 'registry/members/list.html', {'members': members, 'q': q})
+    return render(request, 'frontend/members/list.html', {'members': members, 'q': q})
 
 
 @login_required
@@ -79,13 +79,13 @@ def member_create(request):
         form.save()
         messages.success(request, 'Member registered successfully.')
         return redirect('member_list')
-    return render(request, 'registry/members/form.html', {'form': form, 'title': 'Register New Member'})
+    return render(request, 'frontend/members/form.html', {'form': form, 'title': 'Register New Member'})
 
 
 @login_required
 def member_detail(request, pk):
     member = get_object_or_404(Member, pk=pk)
-    return render(request, 'registry/members/detail.html', {'member': member})
+    return render(request, 'frontend/members/detail.html', {'member': member})
 
 
 @login_required
@@ -96,7 +96,7 @@ def member_edit(request, pk):
         form.save()
         messages.success(request, 'Member updated successfully.')
         return redirect('member_detail', pk=pk)
-    return render(request, 'registry/members/form.html', {'form': form, 'title': 'Edit Member', 'member': member})
+    return render(request, 'frontend/members/form.html', {'form': form, 'title': 'Edit Member', 'member': member})
 
 
 @login_required
@@ -107,7 +107,7 @@ def member_deactivate(request, pk):
         member.save()
         messages.success(request, f'{member.full_name} has been deactivated.')
         return redirect('member_list')
-    return render(request, 'registry/confirm_delete.html', {'object': member, 'type': 'Member'})
+    return render(request, 'frontend/confirm_delete.html', {'object': member, 'type': 'Member'})
 
 
 # ─── SACRAMENTS ──────────────────────────────────────────────────────────────
@@ -132,7 +132,7 @@ def sacrament_list(request):
         'last_rites': last_rites, 'q': q,
         'all_members': Member.objects.filter(is_active=True).order_by('last_name', 'first_name'),
     }
-    return render(request, 'registry/sacraments/list.html', context)
+    return render(request, 'frontend/sacraments/list.html', context)
 
 
 # Baptism
@@ -149,7 +149,7 @@ def baptism_create(request, member_pk):
         b.save()
         messages.success(request, 'Baptism record saved.')
         return redirect('member_detail', pk=member_pk)
-    return render(request, 'registry/sacraments/form_baptism.html', {'form': form, 'member': member, 'title': 'Add Baptism Record'})
+    return render(request, 'frontend/sacraments/form_baptism.html', {'form': form, 'member': member, 'title': 'Add Baptism Record'})
 
 
 @login_required
@@ -160,13 +160,13 @@ def baptism_edit(request, pk):
         form.save()
         messages.success(request, 'Baptism record updated.')
         return redirect('member_detail', pk=baptism.member.pk)
-    return render(request, 'registry/sacraments/form_baptism.html', {'form': form, 'member': baptism.member, 'title': 'Edit Baptism Record'})
+    return render(request, 'frontend/sacraments/form_baptism.html', {'form': form, 'member': baptism.member, 'title': 'Edit Baptism Record'})
 
 
 @login_required
 def baptism_print(request, pk):
     baptism = get_object_or_404(Baptism, pk=pk)
-    return render(request, 'registry/sacraments/print_baptism.html', {'baptism': baptism})
+    return render(request, 'frontend/sacraments/print_baptism.html', {'baptism': baptism})
 
 
 # Confirmation
@@ -183,7 +183,7 @@ def confirmation_create(request, member_pk):
         c.save()
         messages.success(request, 'Confirmation record saved.')
         return redirect('member_detail', pk=member_pk)
-    return render(request, 'registry/sacraments/form.html', {'form': form, 'member': member, 'title': 'Add Confirmation Record'})
+    return render(request, 'frontend/sacraments/form.html', {'form': form, 'member': member, 'title': 'Add Confirmation Record'})
 
 
 @login_required
@@ -194,13 +194,13 @@ def confirmation_edit(request, pk):
         form.save()
         messages.success(request, 'Confirmation record updated.')
         return redirect('member_detail', pk=conf.member.pk)
-    return render(request, 'registry/sacraments/form.html', {'form': form, 'member': conf.member, 'title': 'Edit Confirmation Record'})
+    return render(request, 'frontend/sacraments/form.html', {'form': form, 'member': conf.member, 'title': 'Edit Confirmation Record'})
 
 
 @login_required
 def confirmation_print(request, pk):
     conf = get_object_or_404(Confirmation, pk=pk)
-    return render(request, 'registry/sacraments/print_confirmation.html', {'conf': conf})
+    return render(request, 'frontend/sacraments/print_confirmation.html', {'conf': conf})
 
 
 # First Holy Communion
@@ -217,7 +217,7 @@ def communion_create(request, member_pk):
         c.save()
         messages.success(request, 'First Holy Communion record saved.')
         return redirect('member_detail', pk=member_pk)
-    return render(request, 'registry/sacraments/form.html', {'form': form, 'member': member, 'title': 'Add First Holy Communion Record'})
+    return render(request, 'frontend/sacraments/form.html', {'form': form, 'member': member, 'title': 'Add First Holy Communion Record'})
 
 
 @login_required
@@ -228,13 +228,13 @@ def communion_edit(request, pk):
         form.save()
         messages.success(request, 'Communion record updated.')
         return redirect('member_detail', pk=communion.member.pk)
-    return render(request, 'registry/sacraments/form.html', {'form': form, 'member': communion.member, 'title': 'Edit Communion Record'})
+    return render(request, 'frontend/sacraments/form.html', {'form': form, 'member': communion.member, 'title': 'Edit Communion Record'})
 
 
 @login_required
 def communion_print(request, pk):
     communion = get_object_or_404(FirstHolyCommunion, pk=pk)
-    return render(request, 'registry/sacraments/print_communion.html', {'communion': communion})
+    return render(request, 'frontend/sacraments/print_communion.html', {'communion': communion})
 
 
 # Marriage
@@ -248,7 +248,7 @@ def marriage_create(request, member_pk):
         m.save()
         messages.success(request, 'Marriage record saved.')
         return redirect('member_detail', pk=member_pk)
-    return render(request, 'registry/sacraments/form.html', {'form': form, 'member': member, 'title': 'Add Marriage Record'})
+    return render(request, 'frontend/sacraments/form.html', {'form': form, 'member': member, 'title': 'Add Marriage Record'})
 
 
 @login_required
@@ -259,13 +259,13 @@ def marriage_edit(request, pk):
         form.save()
         messages.success(request, 'Marriage record updated.')
         return redirect('member_detail', pk=marriage.member.pk)
-    return render(request, 'registry/sacraments/form.html', {'form': form, 'member': marriage.member, 'title': 'Edit Marriage Record'})
+    return render(request, 'frontend/sacraments/form.html', {'form': form, 'member': marriage.member, 'title': 'Edit Marriage Record'})
 
 
 @login_required
 def marriage_print(request, pk):
     marriage = get_object_or_404(Marriage, pk=pk)
-    return render(request, 'registry/sacraments/print_marriage.html', {'marriage': marriage})
+    return render(request, 'frontend/sacraments/print_marriage.html', {'marriage': marriage})
 
 
 # Last Rites
@@ -282,7 +282,7 @@ def last_rites_create(request, member_pk):
         lr.save()
         messages.success(request, 'Last Rites record saved.')
         return redirect('member_detail', pk=member_pk)
-    return render(request, 'registry/sacraments/form.html', {'form': form, 'member': member, 'title': 'Add Last Rites Record'})
+    return render(request, 'frontend/sacraments/form.html', {'form': form, 'member': member, 'title': 'Add Last Rites Record'})
 
 
 @login_required
@@ -293,13 +293,13 @@ def last_rites_edit(request, pk):
         form.save()
         messages.success(request, 'Last Rites record updated.')
         return redirect('member_detail', pk=lr.member.pk)
-    return render(request, 'registry/sacraments/form.html', {'form': form, 'member': lr.member, 'title': 'Edit Last Rites Record'})
+    return render(request, 'frontend/sacraments/form.html', {'form': form, 'member': lr.member, 'title': 'Edit Last Rites Record'})
 
 
 @login_required
 def last_rites_print(request, pk):
     lr = get_object_or_404(LastRites, pk=pk)
-    return render(request, 'registry/sacraments/print_last_rites.html', {'lr': lr})
+    return render(request, 'frontend/sacraments/print_last_rites.html', {'lr': lr})
 
 
 # ─── PLEDGES ─────────────────────────────────────────────────────────────────
@@ -313,7 +313,7 @@ def pledge_list(request):
             Q(member__first_name__icontains=q) | Q(member__last_name__icontains=q) |
             Q(description__icontains=q)
         )
-    return render(request, 'registry/pledges/list.html', {'pledges': pledges, 'q': q})
+    return render(request, 'frontend/pledges/list.html', {'pledges': pledges, 'q': q})
 
 
 @login_required
@@ -323,14 +323,14 @@ def pledge_create(request):
         form.save()
         messages.success(request, 'Pledge recorded successfully.')
         return redirect('pledge_list')
-    return render(request, 'registry/pledges/form.html', {'form': form, 'title': 'Add Pledge'})
+    return render(request, 'frontend/pledges/form.html', {'form': form, 'title': 'Add Pledge'})
 
 
 @login_required
 def pledge_detail(request, pk):
     pledge = get_object_or_404(Pledge, pk=pk)
     payment_form = PledgePaymentForm()
-    return render(request, 'registry/pledges/detail.html', {'pledge': pledge, 'payment_form': payment_form})
+    return render(request, 'frontend/pledges/detail.html', {'pledge': pledge, 'payment_form': payment_form})
 
 
 @login_required
@@ -341,7 +341,7 @@ def pledge_edit(request, pk):
         form.save()
         messages.success(request, 'Pledge updated.')
         return redirect('pledge_detail', pk=pk)
-    return render(request, 'registry/pledges/form.html', {'form': form, 'title': 'Edit Pledge'})
+    return render(request, 'frontend/pledges/form.html', {'form': form, 'title': 'Edit Pledge'})
 
 
 @login_required
@@ -351,7 +351,7 @@ def pledge_delete(request, pk):
         pledge.delete()
         messages.success(request, 'Pledge deleted.')
         return redirect('pledge_list')
-    return render(request, 'registry/confirm_delete.html', {'object': pledge, 'type': 'Pledge'})
+    return render(request, 'frontend/confirm_delete.html', {'object': pledge, 'type': 'Pledge'})
 
 
 @login_required
@@ -364,7 +364,7 @@ def payment_add(request, pledge_pk):
         payment.save()
         messages.success(request, 'Payment recorded.')
         return redirect('pledge_detail', pk=pledge_pk)
-    return render(request, 'registry/pledges/payment_form.html', {'form': form, 'pledge': pledge})
+    return render(request, 'frontend/pledges/payment_form.html', {'form': form, 'pledge': pledge})
 
 
 @login_required
@@ -376,7 +376,7 @@ def payment_delete(request, pk):
         payment.pledge.update_status()
         messages.success(request, 'Payment removed.')
         return redirect('pledge_detail', pk=pledge_pk)
-    return render(request, 'registry/confirm_delete.html', {'object': payment, 'type': 'Payment'})
+    return render(request, 'frontend/confirm_delete.html', {'object': payment, 'type': 'Payment'})
 
 
 # ─── PRINT VIEWS ─────────────────────────────────────────────────────────────
@@ -384,22 +384,22 @@ def payment_delete(request, pk):
 @login_required
 def member_print(request, pk):
     member = get_object_or_404(Member, pk=pk)
-    return render(request, 'registry/members/print_member.html', {'member': member})
+    return render(request, 'frontend/members/print_member.html', {'member': member})
 
 
 @login_required
 def member_list_print(request):
     members = Member.objects.filter(is_active=True).order_by('last_name', 'first_name')
-    return render(request, 'registry/members/print_member_list.html', {'members': members})
+    return render(request, 'frontend/members/print_member_list.html', {'members': members})
 
 
 @login_required
 def pledge_print(request, pk):
     pledge = get_object_or_404(Pledge, pk=pk)
-    return render(request, 'registry/pledges/print_pledge.html', {'pledge': pledge})
+    return render(request, 'frontend/pledges/print_pledge.html', {'pledge': pledge})
 
 
 @login_required
 def pledge_list_print(request):
     pledges = Pledge.objects.select_related('member').order_by('member__last_name')
-    return render(request, 'registry/pledges/print_pledge_list.html', {'pledges': pledges})
+    return render(request, 'frontend/pledges/print_pledge_list.html', {'pledges': pledges})
