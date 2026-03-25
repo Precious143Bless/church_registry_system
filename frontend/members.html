@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Members | Church Registry System</title>
+    <link href="assets/style/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/style/church-registry.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo"><i class="fas fa-church"></i></div>
+            <div class="sidebar-title">Church Registry</div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <span class="nav-icon"><i class="fas fa-users"></i></span>
+                <span>Members</span>
+            </a>
+            <a href="sacraments.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-cross"></i></span>
+                <span>Sacraments</span>
+            </a>
+            <a href="events.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-calendar"></i></span>
+                <span>Events</span>
+            </a>
+            <a href="logbook.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-book"></i></span>
+                <span>Logbook</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-home-user"></i></span>
+                <span>Families</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-donate"></i></span>
+                <span>Donations</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-file-alt"></i></span>
+                <span>Reports</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-cog"></i></span>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="header-title">Members</h1>
+            
+            <div class="header-actions">
+                <button class="btn btn-secondary">
+                    <span><i class="fas fa-search"></i></span>
+                    <span>Search</span>
+                </button>
+                
+                <button class="btn btn-primary" onclick="showAddMemberModal()">
+                    <span><i class="fas fa-plus"></i></span>
+                    <span>Add Member</span>
+                </button>
+                
+                <div class="user-menu">
+                    <div class="user-avatar">JD</div>
+                    <span class="user-name">John Doe</span>
+                    <span><i class="fas fa-chevron-down"></i></span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Content -->
+        <div class="content">
+            <!-- Filters -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="form-label">Search Members</label>
+                                <input type="text" class="form-control" placeholder="Search by name, email, or ID...">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select class="form-control">
+                                    <option>All Status</option>
+                                    <option>Active</option>
+                                    <option>Inactive</option>
+                                    <option>Transferred</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="form-label">Ministry</label>
+                                <select class="form-control">
+                                    <option>All Ministries</option>
+                                    <option>Choir</option>
+                                    <option>Lectors</option>
+                                    <option>Eucharistic Ministers</option>
+                                    <option>Youth Ministry</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="form-label">Date Joined</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary">Apply Filters</button>
+                                    <button class="btn btn-secondary">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Members Table -->
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2 style="font-size: 1.25rem; margin: 0; font-weight: 600;">Member Registry</h2>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-secondary btn-sm">
+                            <span><i class="fas fa-download"></i></span>
+                            <span>Export</span>
+                        </button>
+                        <button class="btn btn-secondary btn-sm">
+                            <span><i class="fas fa-print"></i></span>
+                            <span>Print</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table members-table">
+                        <thead>
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Date of Birth</th>
+                                <th>Date Joined</th>
+                                <th>Status</th>
+                                <th>Ministry</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>MEM-001</strong></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; color: var(--gray-700); font-weight: 600; font-size: 0.875rem;">MS</div>
+                                        <div>
+                                            <div style="font-weight: 600; color: var(--gray-900);">Maria Santos</div>
+                                            <div style="font-size: 0.75rem; color: var(--gray-500);">Female</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div style="font-weight: 500; color: var(--gray-900);">maria.santos@email.com</div>
+                                        <div style="font-size: 0.875rem; color: var(--gray-500);">+63 912 345 6789</div>
+                                    </div>
+                                </td>
+                                <td style="color: var(--gray-700);">March 15, 1995</td>
+                                <td style="color: var(--gray-700);">January 10, 2020</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td style="color: var(--gray-700);">Choir</td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>MEM-002</strong></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; color: var(--gray-700); font-weight: 600; font-size: 0.875rem;">JR</div>
+                                        <div>
+                                            <div style="font-weight: 600; color: var(--gray-900);">John Reyes</div>
+                                            <div style="font-size: 0.75rem; color: var(--gray-500);">Male</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div style="font-weight: 500; color: var(--gray-900);">john.reyes@email.com</div>
+                                        <div style="font-size: 0.875rem; color: var(--gray-500);">+63 923 456 7890</div>
+                                    </div>
+                                </td>
+                                <td style="color: var(--gray-700);">July 22, 1988</td>
+                                <td style="color: var(--gray-700);">March 5, 2019</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td style="color: var(--gray-700);">Lectors</td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>MEM-003</strong></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; color: var(--gray-700); font-weight: 600; font-size: 0.875rem;">AL</div>
+                                        <div>
+                                            <div style="font-weight: 600; color: var(--gray-900);">Ana Lopez</div>
+                                            <div style="font-size: 0.75rem; color: var(--gray-500);">Female</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div style="font-weight: 500; color: var(--gray-900);">ana.lopez@email.com</div>
+                                        <div style="font-size: 0.875rem; color: var(--gray-500);">+63 934 567 8901</div>
+                                    </div>
+                                </td>
+                                <td style="color: var(--gray-700);">December 3, 1992</td>
+                                <td style="color: var(--gray-700);">June 15, 2021</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td style="color: var(--gray-700);">None</td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>MEM-004</strong></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; color: var(--gray-700); font-weight: 600; font-size: 0.875rem;">CM</div>
+                                        <div>
+                                            <div style="font-weight: 600; color: var(--gray-900);">Carlos Mendoza</div>
+                                            <div style="font-size: 0.75rem; color: var(--gray-500);">Male</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div style="font-weight: 500; color: var(--gray-900);">carlos.mendoza@email.com</div>
+                                        <div style="font-size: 0.875rem; color: var(--gray-500);">+63 945 678 9012</div>
+                                    </div>
+                                </td>
+                                <td style="color: var(--gray-700);">May 10, 1985</td>
+                                <td style="color: var(--gray-700);">August 20, 2018</td>
+                                <td><span class="badge badge-warning">Transferred</span></td>
+                                <td style="color: var(--gray-700);">Eucharistic Ministers</td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>MEM-005</strong></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; color: var(--gray-700); font-weight: 600; font-size: 0.875rem;">ET</div>
+                                        <div>
+                                            <div style="font-weight: 600; color: var(--gray-900);">Elena Torres</div>
+                                            <div style="font-size: 0.75rem; color: var(--gray-500);">Female</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div style="font-weight: 500; color: var(--gray-900);">elena.torres@email.com</div>
+                                        <div style="font-size: 0.875rem; color: var(--gray-500);">+63 956 789 0123</div>
+                                    </div>
+                                </td>
+                                <td style="color: var(--gray-700);">September 8, 1990</td>
+                                <td style="color: var(--gray-700);">February 14, 2022</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td style="color: var(--gray-700);">Youth Ministry</td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <div style="color: var(--gray-500); font-size: 0.875rem;">
+                        Showing 1-5 of 1,234 members
+                    </div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></button>
+                        <button class="btn btn-primary btn-sm">1</button>
+                        <button class="btn btn-secondary btn-sm">2</button>
+                        <button class="btn btn-secondary btn-sm">3</button>
+                        <button class="btn btn-secondary btn-sm">...</button>
+                        <button class="btn btn-secondary btn-sm">247</button>
+                        <button class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Add Member Modal -->
+    <div id="addMemberModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: var(--radius-lg); width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 style="font-size: 1.25rem; margin: 0; font-weight: 600;">Add New Member</h2>
+                <button onclick="hideAddMemberModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-500);"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">First Name *</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth *</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Gender *</label>
+                                <select class="form-control" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Phone Number *</label>
+                        <input type="tel" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" rows="3" placeholder="Enter complete address"></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Date Joined</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Ministry</label>
+                                <select class="form-control">
+                                    <option value="">Select Ministry</option>
+                                    <option value="choir">Choir</option>
+                                    <option value="lectors">Lectors</option>
+                                    <option value="eucharistic">Eucharistic Ministers</option>
+                                    <option value="youth">Youth Ministry</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select class="form-control">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="transferred">Transferred</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer d-flex justify-content-end gap-2">
+                <button class="btn btn-secondary" onclick="hideAddMemberModal()">Cancel</button>
+                <button class="btn btn-primary">Add Member</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/script/bootstrap.bundle.js"></script>
+    <script src="assets/script/church-registry.js"></script>
+</body>
+</html>
