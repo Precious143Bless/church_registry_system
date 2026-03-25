@@ -35,7 +35,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'church_registry.urls'
+ROOT_URLCONF = 'church_registry_system.urls'
 
 TEMPLATES = [
     {
