@@ -1,0 +1,429 @@
+{% extends 'registry/base.html' %}
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm" style="border-radius:12px;">
+            <div class="card-header bg-white border-0 pt-4 px-4">
+                <h6 class="fw-bold mb-0" style="color:#4e2a1e;">
+                    <i class="bi bi-person-plus-fill me-2" style="color:#c9a84c;"></i>{{ title }}
+                </h6>
+            </div>
+            <div class="card-body px-4 pb-4">
+
+                {% if form.errors %}
+                <div class="alert alert-danger py-2 px-3 mb-3" style="border-radius:8px;">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <strong>Please fix the errors below before saving.</strong>
+                </div>
+                {% endif %}
+
+                <form method="post" novalidate id="memberForm">
+                    {% csrf_token %}
+                    <div class="row g-3">
+
+                        <!-- Personal Information -->
+                        <h6 class="fw-bold mb-2 mt-2" style="color:#4e2a1e; border-bottom: 2px solid #c9a84c; padding-bottom: 5px;">
+                            <i class="bi bi-person-fill me-2"></i>Personal Information
+                        </h6>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold small">First Name *</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="text-danger small mt-1"><i class="bi bi-x-circle me-1"></i>{{ form.first_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold small">Middle Name <span class="text-muted">(optional)</span></label>
+                            {{ form.middle_name }}
+                            {% if form.middle_name.errors %}
+                                <div class="text-danger small mt-1"><i class="bi bi-x-circle me-1"></i>{{ form.middle_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold small">Last Name *</label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <div class="text-danger small mt-1"><i class="bi bi-x-circle me-1"></i>{{ form.last_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold small">Birthday *</label>
+                            {{ form.birthday }}
+                            {% if form.birthday.errors %}
+                                <div class="text-danger small mt-1"><i class="bi bi-x-circle me-1"></i>{{ form.birthday.errors.0 }}</div>
+                            {% else %}
+                                <div class="text-muted small mt-1">Cannot be a future date.</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold small">Gender *</label>
+                            {{ form.gender }}
+                            {% if form.gender.errors %}
+                                <div class="text-danger small mt-1"><i class="bi bi-x-circle me-1"></i>{{ form.gender.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold small">Civil Status *</label>
+                            {{ form.civil_status }}
+                            {% if form.civil_status.errors %}
+                                <div class="text-danger small mt-1"><i class="bi bi-x-circle me-1"></i>{{ form.civil_status.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Address *</label>
+                            {{ form.address }}
+                            {% if form.address.errors %}
+                                <div class="text-danger small mt-1"><i class="bi bi-x-circle me-1"></i>{{ form.address.errors.0 }}</div>
+                            {% else %}
+                                <div class="text-muted small mt-1">Include house no., street, barangay, and city.</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Contact Information -->
+                        <h6 class="fw-bold mb-2 mt-3" style="color:#4e2a1e; border-bottom: 2px solid #c9a84c; padding-bottom: 5px;">
+                            <i class="bi bi-envelope-fill me-2"></i>Contact Information
+                        </h6>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Contact Number <span class="text-muted">(optional)</span></label>
+                            {{ form.contact_number }}
+                            {% if form.contact_number.errors %}
+                                <div class="text-danger small mt-1"><i class="bi bi-x-circle me-1"></i>{{ form.contact_number.errors.0 }}</div>
+                            {% else %}
+                                <div class="text-muted small mt-1">11 digits, must start with 09 (e.g. 09171234567).</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Email <span class="text-muted">(optional)</span></label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger small mt-1"><i class="bi bi-x-circle me-1"></i>{{ form.email.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Church Assignment -->
+                        <h6 class="fw-bold mb-2 mt-3" style="color:#4e2a1e; border-bottom: 2px solid #c9a84c; padding-bottom: 5px;">
+                            <i class="bi bi-building-fill me-2"></i>Church Assignment
+                        </h6>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Assigned Church/Diocese</label>
+                            {{ form.church }}
+                            {% if form.church.errors %}
+                                <div class="text-danger small mt-1"><i class="bi bi-x-circle me-1"></i>{{ form.church.errors.0 }}</div>
+                            {% endif %}
+                            <div class="text-muted small mt-1">Select the church or diocese where the member belongs.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Assigned Parish</label>
+                            {{ form.parish }}
+                            {% if form.parish.errors %}
+                                <div class="text-danger small mt-1"><i class="bi bi-x-circle me-1"></i>{{ form.parish.errors.0 }}</div>
+                            {% endif %}
+                            <div class="text-muted small mt-1" id="memberParishHelpText">Select the specific parish (filtered by church above).</div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary-church px-4" id="saveButton">
+                            <i class="bi bi-check-lg me-1"></i>Save Member
+                        </button>
+                        <a href="{% if member %}{% url 'member_detail' member.pk %}{% else %}{% url 'member_list' %}{% endif %}"
+                           class="btn btn-outline-secondary px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const today = new Date().toISOString().split('T')[0];
+    const birthdayInput = document.querySelector('input[name="birthday"]');
+    if (birthdayInput) birthdayInput.setAttribute('max', today);
+
+    // Church and Parish dropdown filtering
+    const churchSelect = document.querySelector('select[name="church"]');
+    const parishSelect = document.querySelector('select[name="parish"]');
+    const parishHelpText = document.getElementById('memberParishHelpText');
+    
+    // Store current selected values for editing
+    const currentChurchId = churchSelect ? churchSelect.value : '';
+    const currentParishId = parishSelect ? parishSelect.value : '';
+    
+    // Store all parishes data for fallback
+    let allParishes = [];
+    
+    // Function to load parishes based on church ID
+    function loadParishes(churchId, selectedParishId = null) {
+        if (!churchId || churchId === '') {
+            // Show all parishes when no church selected
+            parishSelect.innerHTML = '<option value="">---------</option>';
+            if (allParishes.length > 0) {
+                allParishes.forEach(parish => {
+                    const option = document.createElement('option');
+                    option.value = parish.id;
+                    option.textContent = parish.name;
+                    parishSelect.appendChild(option);
+                });
+            }
+            parishSelect.disabled = false;
+            if (parishHelpText) {
+                parishHelpText.innerHTML = 'Select a parish (showing all parishes).';
+                parishHelpText.classList.remove('text-warning');
+                parishHelpText.classList.add('text-muted');
+            }
+            if (selectedParishId) {
+                parishSelect.value = selectedParishId;
+            }
+            return;
+        }
+        
+        // Show loading state
+        parishSelect.innerHTML = '<option value="">Loading parishes...</option>';
+        parishSelect.disabled = true;
+        
+        // Fetch parishes for selected church
+        fetch(`/api/parishes/by-church/${churchId}/`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Store all parishes data
+                allParishes = data.parishes || [];
+                
+                // Clear current options
+                parishSelect.innerHTML = '<option value="">---------</option>';
+                
+                if (data.parishes && data.parishes.length > 0) {
+                    // Add parishes to dropdown
+                    data.parishes.forEach(parish => {
+                        const option = document.createElement('option');
+                        option.value = parish.id;
+                        option.textContent = parish.name;
+                        parishSelect.appendChild(option);
+                    });
+                    parishSelect.disabled = false;
+                    if (parishHelpText) {
+                        parishHelpText.innerHTML = 'Select the specific parish (filtered by church above).';
+                        parishHelpText.classList.remove('text-warning');
+                        parishHelpText.classList.add('text-muted');
+                    }
+                    
+                    // If there's a selected parish ID, set it
+                    if (selectedParishId) {
+                        parishSelect.value = selectedParishId;
+                    }
+                } else {
+                    parishSelect.innerHTML = '<option value="">No parishes available for this church</option>';
+                    parishSelect.disabled = true;
+                    if (parishHelpText) {
+                        parishHelpText.innerHTML = 'No parishes found for this church. You can add parishes from the Churches section.';
+                        parishHelpText.classList.add('text-warning');
+                        parishHelpText.classList.remove('text-muted');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching parishes:', error);
+                parishSelect.innerHTML = '<option value="">Error loading parishes</option>';
+                parishSelect.disabled = true;
+                if (parishHelpText) {
+                    parishHelpText.innerHTML = 'Error loading parishes. Please try again.';
+                    parishHelpText.classList.add('text-danger');
+                    parishHelpText.classList.remove('text-muted');
+                }
+            });
+    }
+    
+    // Fetch all parishes initially for the dropdown options
+    function loadAllParishes() {
+        fetch('/api/parishes/all/')
+            .then(response => response.json())
+            .then(data => {
+                allParishes = data.parishes || [];
+                // Don't populate the dropdown yet, just store for later use
+            })
+            .catch(error => console.error('Error fetching all parishes:', error));
+    }
+    
+    // Initial load if editing and church is selected
+    if (currentChurchId && currentChurchId !== '') {
+        loadParishes(currentChurchId, currentParishId);
+    } else {
+        // Load all parishes for initial state
+        loadAllParishes();
+        if (parishSelect) {
+            // Populate parish dropdown with all parishes initially
+            fetch('/api/parishes/all/')
+                .then(response => response.json())
+                .then(data => {
+                    parishSelect.innerHTML = '<option value="">---------</option>';
+                    if (data.parishes && data.parishes.length > 0) {
+                        data.parishes.forEach(parish => {
+                            const option = document.createElement('option');
+                            option.value = parish.id;
+                            option.textContent = parish.name;
+                            parishSelect.appendChild(option);
+                        });
+                        parishSelect.disabled = false;
+                    }
+                    if (currentParishId) {
+                        parishSelect.value = currentParishId;
+                    }
+                })
+                .catch(error => console.error('Error loading parishes:', error));
+        }
+        if (parishHelpText) {
+            parishHelpText.innerHTML = 'Select a parish (showing all parishes).';
+            parishHelpText.classList.add('text-muted');
+            parishHelpText.classList.remove('text-warning');
+        }
+    }
+    
+    // Add change event listener to church select
+    if (churchSelect) {
+        churchSelect.addEventListener('change', function() {
+            const churchId = this.value;
+            loadParishes(churchId);
+        });
+    }
+
+    // Highlight fields with errors
+    document.querySelectorAll('.text-danger').forEach(function (el) {
+        const input = el.previousElementSibling;
+        if (input && (input.tagName === 'INPUT' || input.tagName === 'SELECT' || input.tagName === 'TEXTAREA')) {
+            input.classList.add('is-invalid');
+        }
+    });
+
+    // Form submission - don't prevent default, let Django handle validation
+    const form = document.getElementById('memberForm');
+    const saveButton = document.getElementById('saveButton');
+    const isEdit = {% if member.pk %}true{% else %}false{% endif %};
+
+    if (form && saveButton) {
+        saveButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Check for any invalid fields
+            const hasErrors = document.querySelectorAll('.is-invalid').length > 0;
+            if (hasErrors) {
+                showConfirmModal('Please fix the errors above before saving.', null);
+                return;
+            }
+            
+            const firstName = document.querySelector('input[name="first_name"]').value.trim();
+            const lastName = document.querySelector('input[name="last_name"]').value.trim();
+            const fullName = (firstName + ' ' + lastName).trim();
+            const msg = isEdit
+                ? `Are you sure you want to edit "${fullName}"?`
+                : `Are you sure you want to register "${fullName}" as a member?`;
+            showConfirmModal(msg, function() { 
+                // Clear any disabled attributes before submitting
+                if (parishSelect) parishSelect.disabled = false;
+                form.submit(); 
+            });
+        });
+    }
+
+    // Real-time validation
+    const firstNameInput = document.querySelector('input[name="first_name"]');
+    const lastNameInput = document.querySelector('input[name="last_name"]');
+    const contactInput = document.querySelector('input[name="contact_number"]');
+    const emailInput = document.querySelector('input[name="email"]');
+
+    function validateName(input) {
+        const value = input.value.trim();
+        const lettersOnly = /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-'.]+$/;
+        
+        if (value && !lettersOnly.test(value)) {
+            input.setCustomValidity('Name must contain letters only.');
+            input.classList.add('is-invalid');
+        } else {
+            input.setCustomValidity('');
+            input.classList.remove('is-invalid');
+        }
+    }
+
+    function validateContact(input) {
+        const value = input.value.trim();
+        const phonePattern = /^09\d{9}$/;
+        
+        if (value && !phonePattern.test(value)) {
+            input.setCustomValidity('Enter a valid 11-digit Philippine mobile number starting with 09.');
+            input.classList.add('is-invalid');
+        } else {
+            input.setCustomValidity('');
+            input.classList.remove('is-invalid');
+        }
+    }
+
+    function validateEmail(input) {
+        const value = input.value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (value && !emailPattern.test(value)) {
+            input.setCustomValidity('Enter a valid email address.');
+            input.classList.add('is-invalid');
+        } else {
+            input.setCustomValidity('');
+            input.classList.remove('is-invalid');
+        }
+    }
+
+    if (firstNameInput) {
+        firstNameInput.addEventListener('blur', () => validateName(firstNameInput));
+        firstNameInput.addEventListener('input', () => {
+            if (firstNameInput.classList.contains('is-invalid')) {
+                validateName(firstNameInput);
+            }
+        });
+    }
+
+    if (lastNameInput) {
+        lastNameInput.addEventListener('blur', () => validateName(lastNameInput));
+        lastNameInput.addEventListener('input', () => {
+            if (lastNameInput.classList.contains('is-invalid')) {
+                validateName(lastNameInput);
+            }
+        });
+    }
+
+    if (contactInput) {
+        contactInput.addEventListener('blur', () => validateContact(contactInput));
+        contactInput.addEventListener('input', () => {
+            if (contactInput.classList.contains('is-invalid')) {
+                validateContact(contactInput);
+            }
+        });
+    }
+
+    if (emailInput) {
+        emailInput.addEventListener('blur', () => validateEmail(emailInput));
+        emailInput.addEventListener('input', () => {
+            if (emailInput.classList.contains('is-invalid')) {
+                validateEmail(emailInput);
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

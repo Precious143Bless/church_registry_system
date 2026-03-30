@@ -1,0 +1,390 @@
+{% extends 'registry/base.html' %}
+{% block page_title %}Sacramental Records{% endblock %}
+
+{% block content %}
+<!-- Search + Add Button -->
+<div class="card border-0 shadow-sm mb-3" style="border-radius:12px;">
+    <div class="card-body py-2 px-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <form class="d-flex gap-2" method="get">
+            <div class="input-group input-group-sm" style="max-width:350px;">
+                <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Search by member name...">
+                <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+                {% if q %}<a href="{% url 'sacrament_list' %}" class="btn btn-outline-danger"><i class="bi bi-x"></i></a>{% endif %}
+            </div>
+        </form>
+        <button class="btn btn-sm btn-primary-church" data-bs-toggle="modal" data-bs-target="#addSacramentModal">
+            <i class="bi bi-plus-lg me-1"></i>Add Sacrament Record
+        </button>
+    </div>
+</div>
+
+<!-- Tabs -->
+<div class="card table-card mb-0">
+    <div class="card-header bg-white border-0 px-4 pt-3 pb-0">
+        <ul class="nav nav-tabs border-0" id="sacramentTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active d-flex align-items-center gap-2 px-4 py-2"
+                        data-bs-toggle="tab" data-bs-target="#baptisms" type="button" role="tab">
+                    <i class="bi bi-droplet-fill" style="color:#c9a84c;"></i>
+                    <span>Baptisms</span>
+                    <span class="badge rounded-pill ms-1" style="background:#f5ede8;color:#6b3a2a;font-size:0.72rem;">{{ baptisms.paginator.count }}</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link d-flex align-items-center gap-2 px-4 py-2"
+                        data-bs-toggle="tab" data-bs-target="#confirmations" type="button" role="tab">
+                    <i class="bi bi-patch-check-fill" style="color:#c9a84c;"></i>
+                    <span>Confirmations</span>
+                    <span class="badge rounded-pill ms-1" style="background:#f5ede8;color:#6b3a2a;font-size:0.72rem;">{{ confirmations.paginator.count }}</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link d-flex align-items-center gap-2 px-4 py-2"
+                        data-bs-toggle="tab" data-bs-target="#communions" type="button" role="tab">
+                    <i class="bi bi-cup-hot-fill" style="color:#c9a84c;"></i>
+                    <span>Communions</span>
+                    <span class="badge rounded-pill ms-1" style="background:#f5ede8;color:#6b3a2a;font-size:0.72rem;">{{ communions.paginator.count }}</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link d-flex align-items-center gap-2 px-4 py-2"
+                        data-bs-toggle="tab" data-bs-target="#marriages" type="button" role="tab">
+                    <i class="bi bi-heart-fill" style="color:#c9a84c;"></i>
+                    <span>Marriages</span>
+                    <span class="badge rounded-pill ms-1" style="background:#f5ede8;color:#6b3a2a;font-size:0.72rem;">{{ marriages.paginator.count }}</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link d-flex align-items-center gap-2 px-4 py-2"
+                        data-bs-toggle="tab" data-bs-target="#lastrites" type="button" role="tab">
+                    <i class="bi bi-moon-fill" style="color:#c9a84c;"></i>
+                    <span>Last Rites</span>
+                    <span class="badge rounded-pill ms-1" style="background:#f5ede8;color:#6b3a2a;font-size:0.72rem;">{{ last_rites.paginator.count }}</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <!-- Baptisms -->
+        <div class="tab-pane fade show active" id="baptisms" role="tabpanel">
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead><tr><th>Member</th><th>Date Baptized</th><th>Priest</th><th>Godfathers</th><th>Godmothers</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        {% for b in baptisms %}
+                        <tr>
+                            <td><a href="{% url 'member_detail' b.member.pk %}" class="text-decoration-none fw-semibold" style="color:#4e2a1e;">{{ b.member.full_name }}</a></td>
+                            <td>{{ b.date_baptized }}</td>
+                            <td>{{ b.priest }}</td>
+                            <td>{{ b.get_godfathers|join:", "|default:"—" }}</td>
+                            <td>{{ b.get_godmothers|join:", "|default:"—" }}</td>
+                            <td>
+                                <a href="{% url 'baptism_edit' b.pk %}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></a>
+                                <a href="{% url 'baptism_print' b.pk %}" class="btn btn-sm" style="background:#f5ede8;color:#6b3a2a;" target="_blank"><i class="bi bi-printer"></i></a>
+                            </td>
+                        </tr>
+                        {% empty %}<tr><td colspan="6" class="text-center text-muted py-4">No baptism records found.</td></tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if baptisms.has_other_pages %}
+            <div class="card-footer bg-white border-0 px-4 py-2 d-flex justify-content-between align-items-center">
+                <small class="text-muted">{{ baptisms.paginator.count }} record(s)</small>
+                <nav><ul class="pagination pagination-sm mb-0">
+                    {% if baptisms.has_previous %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_b={{ baptisms.previous_page_number }}">&laquo;</a></li>{% endif %}
+                    {% for num in baptisms.paginator.page_range %}
+                        {% if baptisms.number == num %}<li class="page-item active"><span class="page-link" style="background:#6b3a2a;border-color:#6b3a2a;">{{ num }}</span></li>
+                        {% elif num > baptisms.number|add:'-3' and num < baptisms.number|add:'3' %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_b={{ num }}">{{ num }}</a></li>{% endif %}
+                    {% endfor %}
+                    {% if baptisms.has_next %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_b={{ baptisms.next_page_number }}">&raquo;</a></li>{% endif %}
+                </ul></nav>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Confirmations -->
+        <div class="tab-pane fade" id="confirmations" role="tabpanel">
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead><tr><th>Member</th><th>Date Confirmed</th><th>Bishop</th><th>Confirmation Name</th><th>Sponsor</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        {% for c in confirmations %}
+                        <tr>
+                            <td><a href="{% url 'member_detail' c.member.pk %}" class="text-decoration-none fw-semibold" style="color:#4e2a1e;">{{ c.member.full_name }}</a></td>
+                            <td>{{ c.date_confirmed }}</td>
+                            <td>{{ c.bishop }}</td>
+                            <td>{{ c.confirmation_name }}</td>
+                            <td>{{ c.sponsor|default:"—" }}</td>
+                            <td>
+                                <a href="{% url 'confirmation_edit' c.pk %}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></a>
+                                <a href="{% url 'confirmation_print' c.pk %}" class="btn btn-sm" style="background:#f5ede8;color:#6b3a2a;" target="_blank"><i class="bi bi-printer"></i></a>
+                            </td>
+                        </tr>
+                        {% empty %}<tr><td colspan="6" class="text-center text-muted py-4">No confirmation records found.</td></tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if confirmations.has_other_pages %}
+            <div class="card-footer bg-white border-0 px-4 py-2 d-flex justify-content-between align-items-center">
+                <small class="text-muted">{{ confirmations.paginator.count }} record(s)</small>
+                <nav><ul class="pagination pagination-sm mb-0">
+                    {% if confirmations.has_previous %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_c={{ confirmations.previous_page_number }}">&laquo;</a></li>{% endif %}
+                    {% for num in confirmations.paginator.page_range %}
+                        {% if confirmations.number == num %}<li class="page-item active"><span class="page-link" style="background:#6b3a2a;border-color:#6b3a2a;">{{ num }}</span></li>
+                        {% elif num > confirmations.number|add:'-3' and num < confirmations.number|add:'3' %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_c={{ num }}">{{ num }}</a></li>{% endif %}
+                    {% endfor %}
+                    {% if confirmations.has_next %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_c={{ confirmations.next_page_number }}">&raquo;</a></li>{% endif %}
+                </ul></nav>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Communions -->
+        <div class="tab-pane fade" id="communions" role="tabpanel">
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead><tr><th>Member</th><th>Date Received</th><th>Priest</th><th>Remarks</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        {% for c in communions %}
+                        <tr>
+                            <td><a href="{% url 'member_detail' c.member.pk %}" class="text-decoration-none fw-semibold" style="color:#4e2a1e;">{{ c.member.full_name }}</a></td>
+                            <td>{{ c.date_received }}</td>
+                            <td>{{ c.priest }}</td>
+                            <td>{{ c.remarks|default:"—" }}</td>
+                            <td>
+                                <a href="{% url 'communion_edit' c.pk %}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></a>
+                                <a href="{% url 'communion_print' c.pk %}" class="btn btn-sm" style="background:#f5ede8;color:#6b3a2a;" target="_blank"><i class="bi bi-printer"></i></a>
+                            </td>
+                        </tr>
+                        {% empty %}<tr><td colspan="5" class="text-center text-muted py-4">No communion records found.</td></tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if communions.has_other_pages %}
+            <div class="card-footer bg-white border-0 px-4 py-2 d-flex justify-content-between align-items-center">
+                <small class="text-muted">{{ communions.paginator.count }} record(s)</small>
+                <nav><ul class="pagination pagination-sm mb-0">
+                    {% if communions.has_previous %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_co={{ communions.previous_page_number }}">&laquo;</a></li>{% endif %}
+                    {% for num in communions.paginator.page_range %}
+                        {% if communions.number == num %}<li class="page-item active"><span class="page-link" style="background:#6b3a2a;border-color:#6b3a2a;">{{ num }}</span></li>
+                        {% elif num > communions.number|add:'-3' and num < communions.number|add:'3' %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_co={{ num }}">{{ num }}</a></li>{% endif %}
+                    {% endfor %}
+                    {% if communions.has_next %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_co={{ communions.next_page_number }}">&raquo;</a></li>{% endif %}
+                </ul></nav>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Marriages -->
+        <div class="tab-pane fade" id="marriages" role="tabpanel">
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead><tr><th>Member</th><th>Spouse</th><th>Date Married</th><th>Priest</th><th>Principal Sponsor</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        {% for m in marriages %}
+                        <tr>
+                            <td><a href="{% url 'member_detail' m.member.pk %}" class="text-decoration-none fw-semibold" style="color:#4e2a1e;">{{ m.member.full_name }}</a></td>
+                            <td>{{ m.spouse_name }}</td>
+                            <td>{{ m.date_married }}</td>
+                            <td>{{ m.priest }}</td>
+                            <td>{{ m.principal_sponsor|default:"—" }}</td>
+                            <td>
+                                <a href="{% url 'marriage_edit' m.pk %}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></a>
+                                <a href="{% url 'marriage_print' m.pk %}" class="btn btn-sm" style="background:#f5ede8;color:#6b3a2a;" target="_blank"><i class="bi bi-printer"></i></a>
+                            </td>
+                        </tr>
+                        {% empty %}<tr><td colspan="6" class="text-center text-muted py-4">No marriage records found.</td></tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if marriages.has_other_pages %}
+            <div class="card-footer bg-white border-0 px-4 py-2 d-flex justify-content-between align-items-center">
+                <small class="text-muted">{{ marriages.paginator.count }} record(s)</small>
+                <nav><ul class="pagination pagination-sm mb-0">
+                    {% if marriages.has_previous %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_m={{ marriages.previous_page_number }}">&laquo;</a></li>{% endif %}
+                    {% for num in marriages.paginator.page_range %}
+                        {% if marriages.number == num %}<li class="page-item active"><span class="page-link" style="background:#6b3a2a;border-color:#6b3a2a;">{{ num }}</span></li>
+                        {% elif num > marriages.number|add:'-3' and num < marriages.number|add:'3' %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_m={{ num }}">{{ num }}</a></li>{% endif %}
+                    {% endfor %}
+                    {% if marriages.has_next %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_m={{ marriages.next_page_number }}">&raquo;</a></li>{% endif %}
+                </ul></nav>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Last Rites -->
+        <div class="tab-pane fade" id="lastrites" role="tabpanel">
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead><tr><th>Member</th><th>Date Administered</th><th>Priest</th><th>Remarks</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        {% for lr in last_rites %}
+                        <tr>
+                            <td><a href="{% url 'member_detail' lr.member.pk %}" class="text-decoration-none fw-semibold" style="color:#4e2a1e;">{{ lr.member.full_name }}</a></td>
+                            <td>{{ lr.date_administered }}</td>
+                            <td>{{ lr.priest }}</td>
+                            <td>{{ lr.remarks|default:"—" }}</td>
+                            <td>
+                                <a href="{% url 'last_rites_edit' lr.pk %}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></a>
+                                <a href="{% url 'last_rites_print' lr.pk %}" class="btn btn-sm" style="background:#f5ede8;color:#6b3a2a;" target="_blank"><i class="bi bi-printer"></i></a>
+                            </td>
+                        </tr>
+                        {% empty %}<tr><td colspan="5" class="text-center text-muted py-4">No last rites records found.</td></tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if last_rites.has_other_pages %}
+            <div class="card-footer bg-white border-0 px-4 py-2 d-flex justify-content-between align-items-center">
+                <small class="text-muted">{{ last_rites.paginator.count }} record(s)</small>
+                <nav><ul class="pagination pagination-sm mb-0">
+                    {% if last_rites.has_previous %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_lr={{ last_rites.previous_page_number }}">&laquo;</a></li>{% endif %}
+                    {% for num in last_rites.paginator.page_range %}
+                        {% if last_rites.number == num %}<li class="page-item active"><span class="page-link" style="background:#6b3a2a;border-color:#6b3a2a;">{{ num }}</span></li>
+                        {% elif num > last_rites.number|add:'-3' and num < last_rites.number|add:'3' %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_lr={{ num }}">{{ num }}</a></li>{% endif %}
+                    {% endfor %}
+                    {% if last_rites.has_next %}<li class="page-item"><a class="page-link" href="?{% if q %}q={{ q }}&{% endif %}page_lr={{ last_rites.next_page_number }}">&raquo;</a></li>{% endif %}
+                </ul></nav>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    #sacramentTabs .nav-link {
+        color: #6c757d;
+        border: none;
+        border-bottom: 3px solid transparent;
+        border-radius: 0;
+        font-size: 0.88rem;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    #sacramentTabs .nav-link:hover {
+        color: #6b3a2a;
+        border-bottom-color: #e8c99a;
+    }
+    #sacramentTabs .nav-link.active {
+        color: #6b3a2a;
+        font-weight: 700;
+        border-bottom: 3px solid #6b3a2a;
+        background: transparent;
+    }
+    #sacramentTabs .nav-link i { font-size: 0.9rem; }
+</style>
+
+<!-- ── Add Sacrament Modal ─────────────────────────────────── -->
+<div class="modal fade" id="addSacramentModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0" style="border-radius:14px;">
+            <div class="modal-header border-0 pb-0 px-4 pt-4">
+                <div>
+                    <h6 class="modal-title fw-bold mb-0" style="color:#fffff0;">
+                        <i class="bi bi-journal-plus me-2" style="color:#fffff0;"></i>Add Sacrament Record
+                    </h6>
+                    <p class="small mb-0 mt-1" style="color:#fffff0;"> Select a member and sacrament type to continue.</p>
+                </div>
+                <button type="button" class="btn p-0" data-bs-dismiss="modal">
+    <i class="bi bi-x-lg" style="color:#fffff0;"></i>
+</button>
+            </div>
+            <div class="modal-body px-4 pb-4">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Member *</label>
+                    <select id="modal-member-select" class="form-select">
+                        <option value="">— Select a member —</option>
+                        {% for member in all_members %}
+                        <option value="{{ member.pk }}">{{ member.full_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold small">Sacrament Type *</label>
+                    <div class="row g-2" id="sacrament-type-options">
+                        {% with types="baptism,confirmation,communion,marriage,last_rites" %}
+                        <div class="col-6">
+                            <input type="radio" class="btn-check" name="sacrament_type" id="st-baptism" value="baptism">
+                            <label class="btn btn-outline-primary w-100 text-start" for="st-baptism">
+                                <i class="bi bi-droplet-fill me-2"></i>Baptism
+                            </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" class="btn-check" name="sacrament_type" id="st-confirmation" value="confirmation">
+                            <label class="btn btn-outline-success w-100 text-start" for="st-confirmation">
+                                <i class="bi bi-patch-check-fill me-2"></i>Confirmation
+                            </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" class="btn-check" name="sacrament_type" id="st-communion" value="communion">
+                            <label class="btn btn-outline-warning w-100 text-start" for="st-communion">
+                                <i class="bi bi-cup-hot-fill me-2"></i>First Holy Communion
+                            </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" class="btn-check" name="sacrament_type" id="st-marriage" value="marriage">
+                            <label class="btn btn-outline-danger w-100 text-start" for="st-marriage">
+                                <i class="bi bi-heart-fill me-2"></i>Marriage
+                            </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" class="btn-check" name="sacrament_type" id="st-last_rites" value="last_rites">
+                            <label class="btn btn-outline-secondary w-100 text-start" for="st-last_rites">
+                                <i class="bi bi-moon-fill me-2"></i>Last Rites
+                            </label>
+                        </div>
+                        {% endwith %}
+                    </div>
+                </div>
+                <div id="modal-error" class="text-danger small mb-2" style="display:none;">
+                    <i class="bi bi-x-circle me-1"></i>Please select both a member and a sacrament type.
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-primary-church px-4" id="modal-proceed-btn">
+                        <i class="bi bi-arrow-right me-1"></i>Proceed to Form
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // URL map for each sacrament type
+    const sacramentUrls = {
+        baptism:      '/members/{pk}/baptism/add/',
+        confirmation: '/members/{pk}/confirmation/add/',
+        communion:    '/members/{pk}/communion/add/',
+        marriage:     '/members/{pk}/marriage/add/',
+        last_rites:   '/members/{pk}/last-rites/add/',
+    };
+
+    document.getElementById('modal-proceed-btn').addEventListener('click', function () {
+        const memberPk = document.getElementById('modal-member-select').value;
+        const typeInput = document.querySelector('input[name="sacrament_type"]:checked');
+        const errorEl = document.getElementById('modal-error');
+
+        if (!memberPk || !typeInput) {
+            errorEl.style.display = 'block';
+            return;
+        }
+        errorEl.style.display = 'none';
+        const url = sacramentUrls[typeInput.value].replace('{pk}', memberPk);
+        window.location.href = url;
+    });
+
+    // Hide error when user makes a selection
+    document.getElementById('modal-member-select').addEventListener('change', function () {
+        document.getElementById('modal-error').style.display = 'none';
+    });
+    document.querySelectorAll('input[name="sacrament_type"]').forEach(function (el) {
+        el.addEventListener('change', function () {
+            document.getElementById('modal-error').style.display = 'none';
+        });
+    });
+</script>
+{% endblock %}
